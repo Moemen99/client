@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { delay, map, Observable, of } from 'rxjs';
 import { GoodWithDetails } from 'src/app/interfaces/good-with-details';
 import { GoodsService } from 'src/app/services/goods.service';
 
@@ -31,10 +32,13 @@ export class TransactionsWithIdAndPeriodComponent implements OnInit {
         
       ]],
       startDate:['',
-        Validators.required
+        Validators.required,
+        this.januaryTwentyFourteenRangeValidator()
+        
       ],
       endDate:['',
-        Validators.required
+        Validators.required,
+        this.januaryTwentyFourteenRangeValidator()
       ],
 
     });
@@ -46,6 +50,32 @@ export class TransactionsWithIdAndPeriodComponent implements OnInit {
     }
     return null;
   }
+  januaryTwentyFourteenRangeValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      const value = control.value;
+      
+      return of(value).pipe(
+        delay(100), // Simulate async operation
+        map(val => {
+          if (!val) {
+            return null; // Don't validate empty values
+          }
+  
+          const startOfJanuary2014 = '2014-01-01';
+          const endOfJanuary2014 = '2014-01-31';
+  
+          if (val < startOfJanuary2014 || val > endOfJanuary2014) {
+            return { 'outOfRange': true };
+          }
+  
+          return null;
+        })
+      );
+    };
+  }
+  
+  
+
   onSubmit(){
     if(this.filterForm.valid){
       console.log(this.filterForm.value);

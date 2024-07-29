@@ -1,7 +1,7 @@
 <div class="container mt-3">
     <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="goodID">Good ID:</label>
+        <label class="fw-bold" for="goodID">Good ID:</label>
         <input type="text" formControlName="goodID" class="form-control" id="goodID" placeholder="Enter Good Id">
         <div *ngIf="f['goodID'].touched && f['goodID'].invalid" class="error-messages text-danger">
           <small *ngIf="f['goodID'].errors?.['required']">Good Id is required.</small>
@@ -24,12 +24,12 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div class="footer mb-5">
-      <h3>Transaction Summary</h3>
-      <p>Number of Transactions: {{ totalTransactions }}</p>
-      <p>Total In Amount: {{ totalInAmount }}</p>
-      <p>Total Out Amount: {{ totalOutAmount }}</p>
-      <p>Remaining Amount: {{ remainingAmount }}</p>
+      <div class="footer mb-5">
+        <h3>Transaction Summary</h3>
+        <p>Number of Transactions: {{ totalTransactions }}</p>
+        <p>Total In Amount: {{ totalInAmount }}</p>
+        <p>Total Out Amount: {{ totalOutAmount }}</p>
+        <p>Remaining Amount: {{ remainingAmount }}</p>
+      </div>
     </div>
   </div>

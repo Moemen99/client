@@ -1,7 +1,7 @@
 <div class="container mt-3">
     <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="goodID">Good ID:</label>
+        <label for="goodID" class="fw-bold">Good ID:</label>
         <input type="text" formControlName="goodID" class="form-control" id="goodID" placeholder="Enter Good ID">
         <div *ngIf="f['goodID'].touched && f['goodID'].invalid" class="text-danger">
           <small *ngIf="f['goodID'].errors?.['required']">Good Id is required.</small>
@@ -11,14 +11,20 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="startDate">Start Date:</label>
+        <label for="startDate" class="fw-bold">Start Date:</label>
         <input type="date" formControlName="startDate" class="form-control" id="startDate" placeholder="Enter Strat Date">
-        <small class="text-danger" *ngIf="f['startDate'].touched && f['startDate'].invalid">Start date is required.</small>
+        <small class="text-danger" *ngIf="f['startDate'].touched && f['startDate'].errors?.['required']">Start date is required.</small>
+        <div class="text-danger" *ngIf="f['startDate'].touched && f['startDate'].errors?.['outOfRange']">
+          Please select a date in January 2014.
+        </div>
       </div>
       <div class="form-group">
-        <label for="endDate">End Date:</label>
+        <label for="endDate" class="fw-bold">End Date:</label>
         <input type="date" formControlName="endDate" class="form-control" id="endDate" placeholder="Enter End Date">
-        <small class="text-danger" *ngIf="f['endDate'].touched && f['endDate'].invalid">End Date is required.</small>
+        <small class="text-danger" *ngIf="f['endDate'].touched && f['endDate'].errors?.['required']">End date is required.</small>
+        <div class="text-danger" *ngIf="f['startDate'].touched && f['endDate'].errors?.['outOfRange']">
+          Please select a date in January 2014.
+        </div>
       </div>
       <button type="submit" [disabled]="filterForm.invalid" class="btn btn-dark mt-2">Apply Filters</button>
     </form>

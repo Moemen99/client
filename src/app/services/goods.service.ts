@@ -34,12 +34,12 @@ export class GoodsService {
     );
   }
   
-  getTransactions():Observable<any[]>
+  getTransactions():Observable<Transaction[]>
   {
     return this._http.get<any[]>('Goods/Transactions').pipe(
       map(response => response.map(item => ({
         goodID: item.goodID,
-        transactionId: item.transactionID,
+        transactionID: item.transactionID,
         transactionDate: item.transactionDate,
         amount:item.amount,
         direction:item.direction,
