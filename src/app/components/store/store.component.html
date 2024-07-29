@@ -1,0 +1,13 @@
+<div class="container mt-4">
+    <h2>Store Information</h2>
+    <div *ngFor="let store of stores" class="card mb-3">
+      <div class="card-header">
+        Featured Store
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ store.name }}</h5>
+        <p class="card-text">Store Transactions Latest Update: <strong>{{ store.storeFileDate }}</strong></p>
+      </div>
+    </div>
+  </div>
+  

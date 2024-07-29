@@ -1,0 +1,35 @@
+<div class="container mt-3">
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="goodID">Good ID:</label>
+        <input type="text" formControlName="goodID" class="form-control" id="goodID" placeholder="Enter Good Id">
+        <div *ngIf="f['goodID'].touched && f['goodID'].invalid" class="error-messages text-danger">
+          <small *ngIf="f['goodID'].errors?.['required']">Good Id is required.</small>
+          <small *ngIf="f['goodID'].errors?.['pattern']">Good Id must be a 4-digit number.</small>
+          <small *ngIf="f['goodID'].errors?.['outOfRange']">Good Id must be between 5401 and 5406.</small>
+        </div>
+      </div>
+      
+      <button type="submit" [disabled]="filterForm.invalid" class="btn btn-dark mt-2">Apply Filters</button>
+    </form>
+
+    <div *ngIf="filteredTransactions.length > 0">
+      <div *ngFor="let good of filteredTransactions">
+        <p>Good ID: {{good.goodID}}</p>
+        <p>Initial Balance: {{good.goodInitialBalance}}</p>
+        <h4> Transactions:</h4>
+        <ul>
+          <li *ngFor="let transaction of good.transactions">
+            {{ transaction.transactionID }} - {{transaction.transactionDate}} - {{ transaction.amount }} - {{ transaction.direction }} - {{transaction.comment}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer mb-5">
+      <h3>Transaction Summary</h3>
+      <p>Number of Transactions: {{ totalTransactions }}</p>
+      <p>Total In Amount: {{ totalInAmount }}</p>
+      <p>Total Out Amount: {{ totalOutAmount }}</p>
+      <p>Remaining Amount: {{ remainingAmount }}</p>
+    </div>
+  </div>

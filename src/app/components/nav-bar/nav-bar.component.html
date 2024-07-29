@@ -1,0 +1,35 @@
+<nav
+    class="navbar navbar-expand-sm navbar-dark bg-dark"
+>
+    <div class="container">
+        <a class="navbar-brand fs-2" routerLink="">Azdo</a>
+        <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav m-auto mt-2 mt-lg-0 gap-3">
+              
+                <li class="nav-item">
+                    <a class="nav-link fs-5" routerLink="store" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Store</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-5" routerLink="goods" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Goods</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-5" routerLink="transactions/all" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Transactions</a>
+                </li>
+              
+            </ul>
+           
+        </div>
+    </div>
+</nav>
+

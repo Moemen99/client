@@ -1,0 +1,33 @@
+<!-- transaction-list.component.html -->
+<div class="transaction-list">
+    <h2>Transactions</h2>
+    <table class="table">
+      <thead>
+        <tr>
+         <th>GoodID</th>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Direction</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td>{{ transaction.goodID }}</td>
+          <td>{{ transaction.transactionID }}</td>
+          <td>{{ transaction.transactionDate  }}</td>
+          <td>{{ transaction.amount  }}</td>
+          <td>{{ transaction.direction }}</td>
+          <td>{{ transaction.comment }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- <footer class="transaction-summary">
+    <h3>Transaction Summary</h3>
+    <p>Number of Transactions: {{ summary.numberOfTransactions }}</p>
+    <p>Total Amount: {{ summary.totalAmount | currency }}</p>
+    <p>Remaining Amount: {{ summary.remainingAmount | currency }}</p>
+  </footer> -->

@@ -1,0 +1,21 @@
+<div class="container mt-4">
+    <h2 class="text-center">Goods List</h2>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Good ID</th>
+                        <th>Initial Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let good of goodsList">
+                        <td>{{ good.goodID }}</td>
+                        <td>{{ good.goodInitialBalance }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
