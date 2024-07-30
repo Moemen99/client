@@ -1,35 +1,97 @@
 <div class="container mt-3">
-    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label class="fw-bold" for="goodID">Good ID:</label>
-        <input type="text" formControlName="goodID" class="form-control" id="goodID" placeholder="Enter Good Id">
-        <div *ngIf="f['goodID'].touched && f['goodID'].invalid" class="error-messages text-danger">
-          <small *ngIf="f['goodID'].errors?.['required']">Good Id is required.</small>
-          <small *ngIf="f['goodID'].errors?.['pattern']">Good Id must be a 4-digit number.</small>
-          <small *ngIf="f['goodID'].errors?.['outOfRange']">Good Id must be between 5401 and 5406.</small>
+  <div class="row">
+    <div class="col-md-4 mb-4 mt-3">
+      <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="card">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0">Filter Transactions</h5>
         </div>
-      </div>
-      
-      <button type="submit" [disabled]="filterForm.invalid" class="btn btn-dark mt-2">Apply Filters</button>
-    </form>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="goodID" class="form-label fw-bold">Good ID:</label>
+            <input type="text" formControlName="goodID" class="form-control" id="goodID" placeholder="Enter Good ID">
+            <div *ngIf="f['goodID'].touched && f['goodID'].invalid" class="text-danger mt-1">
+              <small *ngIf="f['goodID'].errors?.['required']">Good ID is required.</small>
+              <small *ngIf="f['goodID'].errors?.['pattern']">Good ID must be a 4-digit number.</small>
+              <small *ngIf="f['goodID'].errors?.['outOfRange']">Good ID must be between 5401 and 5406.</small>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" [disabled]="filterForm.invalid" class="btn btn-primary w-100">Apply Filters</button>
+        </div>
+      </form>
+    </div>
 
-    <div *ngIf="filteredTransactions.length > 0">
-      <div *ngFor="let good of filteredTransactions">
-        <p>Good ID: {{good.goodID}}</p>
-        <p>Initial Balance: {{good.goodInitialBalance}}</p>
-        <h4> Transactions:</h4>
-        <ul>
-          <li *ngFor="let transaction of good.transactions">
-            {{ transaction.transactionID }} - {{transaction.transactionDate}} - {{ transaction.amount }} - {{ transaction.direction }} - {{transaction.comment}}
-          </li>
-        </ul>
-      </div>
-      <div class="footer mb-5">
-        <h3>Transaction Summary</h3>
-        <p>Number of Transactions: {{ totalTransactions }}</p>
-        <p>Total In Amount: {{ totalInAmount }}</p>
-        <p>Total Out Amount: {{ totalOutAmount }}</p>
-        <p>Remaining Amount: {{ remainingAmount }}</p>
+    <div class="col-md-8 mt-3">
+      <div *ngIf="filteredTransactions.length > 0">
+        <div class="card mb-4" *ngFor="let good of filteredTransactions">
+          <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Good ID: {{good.goodID}}</h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><strong>Initial Balance:</strong> {{good.goodInitialBalance}}</p>
+            <h5 class="mt-3">Transactions:</h5>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Direction</th>
+                    <th>Amount</th>
+                    <th>Comment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let transaction of good.transactions">
+                    <td><span class="badge bg-primary">{{transaction.transactionID}}</span></td>
+                    <td>{{transaction.transactionDate}}</td>
+                    <td>
+                      <span [ngClass]="{'text-success': transaction.direction === 'In', 'text-danger': transaction.direction === 'Out'}">
+                        {{transaction.direction}}
+                      </span>
+                    </td>
+                    <td>
+                      <span [ngClass]="{'text-success': transaction.direction === 'In', 'text-danger': transaction.direction === 'Out'}">
+                        {{transaction.amount}}
+                      </span>
+                    </td>
+                    <td>{{transaction.comment}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+  
+        <div class="card bg-light mb-5">
+          <div class="card-header bg-secondary text-white">
+            <h4 class="mb-0">Transaction Summary</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3 col-sm-6 mb-3">
+                <strong>Number of Transactions:</strong>
+                <p class="mb-0">{{ totalTransactions }}</p>
+              </div>
+              <div class="col-md-3 col-sm-6 mb-3">
+                <strong>Total In Amount:</strong>
+                <p class="mb-0 text-success">{{ totalInAmount }}</p>
+              </div>
+              <div class="col-md-3 col-sm-6 mb-3">
+                <strong>Total Out Amount:</strong>
+                <p class="mb-0 text-danger">{{ totalOutAmount }}</p>
+              </div>
+              <div class="col-md-3 col-sm-6 mb-3">
+                <strong>Remaining Amount:</strong>
+                <p class="mb-0" [ngClass]="{'text-success': remainingAmount >= 0, 'text-danger': remainingAmount < 0}">
+                  {{ remainingAmount }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
